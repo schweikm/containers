@@ -1,0 +1,23 @@
+# the podman image to use
+IMAGE=docker.io/pihole/pihole
+
+# podman tag to use
+TAG=latest
+
+# where to store persistent data for podman
+DATA_DIR=/data/podman/pihole
+
+# timezone
+TIMEZONE=America/New_York
+
+# password for web interface
+WEBPASSWORD=password
+
+# main interface to use
+SERVERIP=$(ip addr show | grep 'inet ' | egrep '192|172' | awk '{print $2}' | awk -F '/' '{print $1}')
+
+# host port to bind on 80
+HOSTHTTP=18080
+
+# host port to bind on 443
+HOSTHTTPS=18443

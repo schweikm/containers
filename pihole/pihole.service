@@ -1,0 +1,11 @@
+[Unit]
+Description=Pi-hole
+
+[Service]
+#Restart=always
+EnvironmentFile=/etc/sysconfig/pihole
+ExecStart=/bin/podman run --rm --name pihole --hostname pihole --publish 53:53/udp --publish 53:53/tcp --publish ${HOSTHTTP}:80 --publish ${HOSTHTTPS}:443 --volume ${DATA_DIR}/etc/pihole:/etc/pihole --volume ${DATA_DIR}/etc/dnsmasq.d:/etc/dnsmasq.d --env-file /etc/sysconfig/pihole --dns=127.0.0.1 --dns=8.8.8.8 --cap-add NET_ADMIN ${IMAGE}:${TAG}
+ExecStop=/bin/podman stop --timeout 10 pihole
+
+[Install]
+WantedBy=multi-user.target
