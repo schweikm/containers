@@ -1,6 +1,6 @@
 # Pi-hole
 
-This container runs [Pi-hole ](https://pi-hole.net/) in an SELinux environment
+This container runs [Pi-hole ](https://pi-hole.net/) in an SELinux environment.  This has only been tested on RHEL 8.0.
 
 ## Libvirt Issue
 
@@ -35,10 +35,22 @@ $ sudo killall dnsmasq
 
 For now, run the install shell script and it will install and configure the systemd service that runs the container.  Make any changes required in `pihole.sysconfig` and then run the script.
 
-`tito` is not available on EL 8 yet but I will convert this to an RPM when that happens
+`tito` is not available on EL 8 yet but I will convert this to an RPM when that happens.
+
+### Environment Variables
+
+There are a number of environment variables that are required for Pi-hole to work.  You can use the default values if you want, but review them before deploying.
 
 ```bash
 $ vim pihole.sysconfig
+```
+
+* `WEBPASSWORD` is the password for the admin webpage
+* `DATA_DIR` is where persistent files are stored.  This should probably be its on LV
+
+### Install Script
+
+```bash
 $ sudo ./install.sh
 $ sudo systemctl enable pihole
 $ sudo systemctl start pihole
@@ -51,8 +63,6 @@ The default vhost seems to be broken when you access the interface through a non
 ```plaintext
 http://${SERVERIP}:${HTTPPORT}/admin/
 ```
-
-The default password is set in `pihole.sysconfig` and the default value is `password`
 
 For example,
 
