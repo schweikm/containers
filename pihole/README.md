@@ -78,3 +78,12 @@ Once you have the web interface running, you should make the following changes:
     * DNS
         * Upstream DNS Servers - choose one you like
         * Interface listening behavior - choose **Listen on all interfaces, permit all origins**
+
+## Host Settings
+
+You will need to allow external DNS queries to your host.
+
+```bash
+$ sudo firewall-cmd --permanent --add-service=dns
+$ sudo firewall-cmd --reload
+```
