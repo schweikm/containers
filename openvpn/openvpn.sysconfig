@@ -1,0 +1,8 @@
+# the podman image to use
+IMAGE=docker.io/kylemanna/openvpn
+
+# podman tag to use
+TAG=latest
+
+# where to store persistent data for podman
+DATA_DIR=/data/podman/openvpn

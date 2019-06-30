@@ -14,6 +14,7 @@ $ sudo dnf module install container-tools:rhel8
 ## Working
 
 * `pihole` - Runs [Pi-hole](https://pi-hole.net/) to block ads at the network level
+* `openvpn` - Runs [OpenVPN](https://openvpn.net/) to enable private Virtual Private Network
 
 ## In Progress
 
