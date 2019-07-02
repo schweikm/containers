@@ -5,7 +5,8 @@ Description=OpenVPN
 Restart=on-failure
 EnvironmentFile=/etc/sysconfig/openvpn
 ExecStartPre=-/bin/restorecon -FRvv ${DATA_DIR}
-ExecStart=/bin/podman run --name openvpn --hostname openvpn --rm --cpus 1 --memory 512m --publish 1194:1194/udp --volume ${DATA_DIR}/etc/openvpn:/etc/openvpn --cap-add NET_ADMIN ${IMAGE}:${TAG}
+ExecStartPre=-/bin/podman pull ${IMAGE}:${TAG}
+ExecStart=/bin/podman run --name openvpn --hostname openvpn --rm --cpus 1 --memory 512m --publish 1194:1194/udp --volume ${DATA_DIR}/etc/openvpn:/etc/openvpn:Z --cap-add NET_ADMIN ${IMAGE}:${TAG}
 ExecStop=/bin/podman stop --timeout 10 openvpn
 
 [Install]
