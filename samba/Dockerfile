@@ -24,10 +24,10 @@ RUN testparm -v -s && \
     umask 0022 && \
     chown $USER:$GROUP $EXPORT
 
-VOLUME $EXPORT
-
 ENV KRB5CCNAME FILE:/run/samba/krb5cc_samba
+
+VOLUME $EXPORT
 
 EXPOSE 137/udp 138/udp 139 445
 
-CMD ["/usr/sbin/smbd", "--interactive", "--no-process-group", "--debuglevel=2"]
+CMD ["/usr/sbin/smbd", "--interactive", "--no-process-group"]

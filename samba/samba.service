@@ -1,0 +1,11 @@
+[Unit]
+Description=Samba
+
+[Service]
+Restart=on-failure
+EnvironmentFile=/etc/sysconfig/samba
+ExecStart=/bin/podman run --rm --name samba --hostname samba --cpus 1 --memory 2g --publish 137:137/udp --publish 138:138/udp --publish 139:139 --publish 445:445 --volume /export/samba:/export/samba:Z localhost/samba:latest
+ExecStop=/bin/podman stop --timeout 10 samba
+
+[Install]
+WantedBy=multi-user.target

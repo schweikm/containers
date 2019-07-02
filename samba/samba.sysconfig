@@ -1,0 +1,5 @@
+# the podman image to use
+IMAGE=localhost/samba
+
+# podman tag to use
+TAG=latest

@@ -2,13 +2,21 @@
 
 ## Building
 
+Build the container image.  The smb password is set in the environment at build time
 ```bash
 export SMBPASS="[password]"
-sudo buildah bud -t localhost/samba:latest --build-arg SMBPASS .
+./build.sh
 ```
 
 ## Running
 
 ```bash
-podman run --rm --network host -v /export/samba:/export/samba localhost/samba:latest
+$ systemctl enable samba
+$ systemctl start samba
 ```
+
+
+
+# ausearch -c 'smbd' --raw | audit2allow -M my-smbd
+# semodule -X 300 -i my-smbd.pp
+
