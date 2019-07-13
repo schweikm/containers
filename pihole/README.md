@@ -4,7 +4,7 @@ This container runs [Pi-hole ](https://pi-hole.net/) in an SELinux environment. 
 
 ## Libvirt Issue
 
-By default libvirt starts a dnsmasq instance for DHCP and DNS of virtual networks.  This causes the container to fail to bind to port 53.  You need to disable both of these services for all virtual networks.
+By default libvirt starts a dnsmasq instance for DHCP and DNS of virtual networks.  This causes the container to fail to bind to port 53/udp.  You need to disable both of these services for all virtual networks.
 
 Get a list of virtual networks
 
@@ -12,7 +12,7 @@ Get a list of virtual networks
 $ sudo virsh net-list -all
 ```
 
-Then, for each virtual network that is NAT'd use:
+Then, for each virtual network that uses NAT, change the forward mode, remove the ip block, and add the dns line
 
 ```xml
 <network>
@@ -46,7 +46,7 @@ $ vim pihole.sysconfig
 ```
 
 * `WEBPASSWORD` is the password for the admin webpage
-* `DATA_DIR` is where persistent files are stored.  This should probably be its on LV
+* `DATA_DIR` is where persistent files are stored.  This should probably be its own LV
 
 ### Install Script
 
@@ -67,7 +67,7 @@ http://${SERVERIP}:${HTTPPORT}/admin/
 For example,
 
 ```plaintext
-http://172.16.100.117:18080/admin/
+http://172.16.10.10:18080/admin/
 ```
 
 ## Pi-hole Settings
@@ -78,12 +78,3 @@ Once you have the web interface running, you should make the following changes:
     * DNS
         * Upstream DNS Servers - choose one you like
         * Interface listening behavior - choose **Listen on all interfaces, permit all origins**
-
-## Host Settings
-
-You will need to allow external DNS queries to your host.
-
-```bash
-$ sudo firewall-cmd --permanent --add-service=dns
-$ sudo firewall-cmd --reload
-```

@@ -19,3 +19,6 @@ done
 semanage fcontext -a  -t container_file_t "${DATA_DIR}(/.*)?"
 restorecon -FRvv ${DATA_DIR}
 setsebool -P container_manage_cgroup on
+
+firewall-cmd --permanent --add-service=dns
+firewall-cmd --reload
