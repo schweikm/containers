@@ -21,12 +21,3 @@ $ sudo systemctl start openvpn
 Run through the steps below to initialize the Certificate Authority
 
 https://hub.docker.com/r/kylemanna/openvpn/
-
-## Host Settings
-
-You will need to allow external DNS queries to your host.
-
-```bash
-$ sudo firewall-cmd --permanent --add-service=openvpn
-$ sudo firewall-cmd --reload
-```
